@@ -70,7 +70,7 @@
                     android:padding="18dp">
 
                 <EditText
-                    android:text="@{viewmodel.email}"
+                    android:text="@={viewmodel.email}"
                         android:id="@+id/edit_text_email"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -83,7 +83,7 @@
                         android:padding="12dp" />
 
                 <EditText
-                         android:text="@{viewmodel.password}"
+                         android:text="@={viewmodel.password}"
                         android:id="@+id/edit_text_password"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"

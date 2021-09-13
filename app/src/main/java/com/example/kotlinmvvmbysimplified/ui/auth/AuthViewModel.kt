@@ -9,10 +9,11 @@ class AuthViewModel : ViewModel() {
     var authlistener:AuthListener? = null
 
     fun onLoginButtonClick(view : View){
+        authlistener?.onStarted()
+
         if(email.isNullOrEmpty() || password.isNullOrEmpty()) {
             authlistener?.onFailure("Invalid Email or Password")
-//
-            return
+             return
         }
         authlistener?.onSuccess()
     }
