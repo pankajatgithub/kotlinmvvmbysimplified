@@ -2,6 +2,7 @@ package com.example.kotlinmvvmbysimplified.ui.auth
 
 import android.view.View
 import androidx.lifecycle.ViewModel
+import com.example.kotlinmvvmbysimplified.data.repository.UserRepository
 
 class AuthViewModel : ViewModel() {
     var email:String? = null
@@ -15,7 +16,8 @@ class AuthViewModel : ViewModel() {
             authlistener?.onFailure("Invalid Email or Password")
              return
         }
-        authlistener?.onSuccess()
+        val loginResponse = UserRepository().userLogin(email!!,password!!)
+        authlistener?.onSuccess(loginResponse)
     }
 
 
