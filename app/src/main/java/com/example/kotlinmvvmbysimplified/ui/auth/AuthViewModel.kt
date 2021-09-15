@@ -3,6 +3,7 @@ package com.example.kotlinmvvmbysimplified.ui.auth
 import android.view.View
 import androidx.lifecycle.ViewModel
 import com.example.kotlinmvvmbysimplified.data.repository.UserRepository
+import com.example.kotlinmvvmbysimplified.util.Coroutines
 
 class AuthViewModel : ViewModel() {
     var email:String? = null
@@ -16,8 +17,17 @@ class AuthViewModel : ViewModel() {
             authlistener?.onFailure("Invalid Email or Password")
              return
         }
-        val loginResponse = UserRepository().userLogin(email!!,password!!)
-        authlistener?.onSuccess(loginResponse)
+
+        Coroutines.main {
+            val response = UserRepository().userLogin(email!!,password!!)
+            if(response !=null)
+                authlistener?.onSuccess(response.body()?.user!!)
+            else
+                authlistener?.onFailure("Error Code : ${response.code()}" )
+
+
+
+        }
     }
 
 
