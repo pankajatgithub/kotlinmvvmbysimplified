@@ -22,20 +22,27 @@ import com.example.kotlinmvvmbysimplified.util.snackBar
 import com.example.kotlinmvvmbysimplified.util.toast
 
 import kotlinx.android.synthetic.main.activity_login.*
+import org.kodein.di.Kodein
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.kodein
+import org.kodein.di.generic.instance
 
-class LoginActivity : AppCompatActivity(),AuthListener {
+class LoginActivity : AppCompatActivity(),AuthListener,KodeinAware {
+
+    override val kodein by kodein()
+    private val factory : AuthViewModelFactory by instance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        setContentView(R.layout.activity_login)
 
-        val networkConnectionInterceptor = NetworkConnectionInterceptor(this)
-        val api = MyApi(networkConnectionInterceptor) //creating MyApi and database instance for creating repository instance
-        val db = AppDatabase(this)
-        val repository = UserRepository(api,db)
-        //for vreating viewmodel instance and passing repository as parameter,we will need viewmodelFactory
-
-        val factory = AuthViewModelFactory(repository)
+//        val networkConnectionInterceptor = NetworkConnectionInterceptor(this)
+//        val api = MyApi(networkConnectionInterceptor) //creating MyApi and database instance for creating repository instance
+//        val db = AppDatabase(this)
+//        val repository = UserRepository(api,db)
+//        //for vreating viewmodel instance and passing repository as parameter,we will need viewmodelFactory
+//
+//        val factory = AuthViewModelFactory(repository) //all these objects will be injected using kodein
 
 
         val binding : ActivityLoginBinding=DataBindingUtil.setContentView(this,R.layout.activity_login)
