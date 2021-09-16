@@ -2,9 +2,11 @@ package com.example.kotlinmvvmbysimplified.ui.auth
 
 import android.view.View
 import androidx.lifecycle.ViewModel
+import com.example.kotlinmvvmbysimplified.data.network.NetworkConnectionInterceptor
 import com.example.kotlinmvvmbysimplified.data.repository.UserRepository
 import com.example.kotlinmvvmbysimplified.util.ApiException
 import com.example.kotlinmvvmbysimplified.util.Coroutines
+import com.example.kotlinmvvmbysimplified.util.NoInternetException
 
 class AuthViewModel (
     private val repository: UserRepository
@@ -35,6 +37,9 @@ class AuthViewModel (
                 authlistener?.onFailure(authResponse.message!!)
 
             } catch (e: ApiException) {
+                authlistener?.onFailure(e.message!!)
+
+            }catch (e:NoInternetException){
                 authlistener?.onFailure(e.message!!)
 
             }

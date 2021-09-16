@@ -12,6 +12,7 @@ import com.example.kotlinmvvmbysimplified.R
 import com.example.kotlinmvvmbysimplified.data.db.AppDatabase
 import com.example.kotlinmvvmbysimplified.data.db.entities.User
 import com.example.kotlinmvvmbysimplified.data.network.MyApi
+import com.example.kotlinmvvmbysimplified.data.network.NetworkConnectionInterceptor
 import com.example.kotlinmvvmbysimplified.data.repository.UserRepository
 import com.example.kotlinmvvmbysimplified.databinding.ActivityLoginBinding
 import com.example.kotlinmvvmbysimplified.ui.home.HomeActivity
@@ -28,7 +29,8 @@ class LoginActivity : AppCompatActivity(),AuthListener {
         super.onCreate(savedInstanceState)
 //        setContentView(R.layout.activity_login)
 
-        val api = MyApi() //creating MyApi and database instance for creating repository instance
+        val networkConnectionInterceptor = NetworkConnectionInterceptor(this)
+        val api = MyApi(networkConnectionInterceptor) //creating MyApi and database instance for creating repository instance
         val db = AppDatabase(this)
         val repository = UserRepository(api,db)
         //for vreating viewmodel instance and passing repository as parameter,we will need viewmodelFactory
