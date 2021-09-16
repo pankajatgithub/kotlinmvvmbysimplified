@@ -6,10 +6,15 @@ import com.example.kotlinmvvmbysimplified.data.repository.UserRepository
 import com.example.kotlinmvvmbysimplified.util.ApiException
 import com.example.kotlinmvvmbysimplified.util.Coroutines
 
-class AuthViewModel : ViewModel() {
+class AuthViewModel (
+    private val repository: UserRepository
+        ): ViewModel() {
+
     var email: String? = null
     var password: String? = null
     var authlistener: AuthListener? = null
+
+    fun getLoggedInUser() = repository.getUser()
 
     fun onLoginButtonClick(view: View) {
         authlistener?.onStarted()
@@ -21,9 +26,10 @@ class AuthViewModel : ViewModel() {
 
         Coroutines.main {
             try {
-                val authResponse = UserRepository().userLogin(email!!, password!!)
+                val authResponse = repository.userLogin(email!!, password!!)
                 authResponse.user?.let {
                     authlistener?.onSuccess(it)
+                    repository.saveUser(it) //save user to local database
                     return@main
                 }
                 authlistener?.onFailure(authResponse.message!!)

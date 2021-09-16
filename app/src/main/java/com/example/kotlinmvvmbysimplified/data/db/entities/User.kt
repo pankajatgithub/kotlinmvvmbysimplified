@@ -1,4 +1,4 @@
-package com.example.kotlinmvvmwithlaravel.data.db.entities
+package com.example.kotlinmvvmbysimplified.data.db.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

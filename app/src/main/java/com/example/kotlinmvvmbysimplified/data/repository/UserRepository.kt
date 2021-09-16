@@ -1,20 +1,25 @@
 package com.example.kotlinmvvmbysimplified.data.repository
 
 
+import com.example.kotlinmvvmbysimplified.data.db.AppDatabase
+import com.example.kotlinmvvmbysimplified.data.db.entities.User
 import com.example.kotlinmvvmbysimplified.data.network.MyApi
 import com.example.kotlinmvvmbysimplified.data.network.SafeApiRequest
 import com.example.kotlinmvvmbysimplified.data.network.responses.AuthResponse
 
+
 import retrofit2.Response
+//it is not good practice to create class instance inside any class,so we use constructor injection here
+class UserRepository(
+    private val api: MyApi,
+    private val db: AppDatabase
+) : SafeApiRequest() {
 
-class UserRepository : SafeApiRequest(){
+    suspend fun userLogin(email: String, password: String): AuthResponse {
 
-   suspend fun userLogin(
-        email: String,
-        password: String
-    ): AuthResponse {
+        return apiRequest { MyApi().userlogin(email, password) }
+    }
+    suspend fun saveUser(user: User) = db.getUserDao().upsert(user)
 
-
-       return apiRequest { MyApi().userlogin(email, password) }
-   }
+    fun getUser() = db.getUserDao().getUser()
 }

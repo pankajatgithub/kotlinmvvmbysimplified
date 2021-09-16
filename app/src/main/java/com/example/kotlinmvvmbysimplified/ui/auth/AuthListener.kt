@@ -1,7 +1,7 @@
 package com.example.kotlinmvvmbysimplified.ui.auth
 
 import androidx.lifecycle.LiveData
-import com.example.kotlinmvvmwithlaravel.data.db.entities.User
+import com.example.kotlinmvvmbysimplified.data.db.entities.User
 
 interface AuthListener {
     fun onStarted()
