@@ -1,6 +1,7 @@
 package com.example.kotlinmvvmbysimplified.data.network
 
 import com.example.kotlinmvvmbysimplified.data.network.responses.AuthResponse
+import com.example.kotlinmvvmbysimplified.data.network.responses.QuotesResponse
 import com.example.kotlinmvvmbysimplified.util.NoInternetException
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
@@ -11,6 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
+import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface MyApi {
@@ -32,6 +34,9 @@ interface MyApi {
        @Field("password")password:String,
        @Field("password_confirmation")password_confirmation:String
    ):Response<AuthResponse>
+
+   @GET("quotes")
+   suspend fun getQuotes() : Response<QuotesResponse>
 
 
     companion object{
