@@ -4,6 +4,7 @@ import android.app.Application
 import com.example.kotlinmvvmbysimplified.data.db.AppDatabase
 import com.example.kotlinmvvmbysimplified.data.network.MyApi
 import com.example.kotlinmvvmbysimplified.data.network.NetworkConnectionInterceptor
+import com.example.kotlinmvvmbysimplified.data.preferences.PreferenceProvider
 import com.example.kotlinmvvmbysimplified.data.repository.QuotesRepository
 import com.example.kotlinmvvmbysimplified.data.repository.UserRepository
 import com.example.kotlinmvvmbysimplified.ui.auth.AuthViewModelFactory
@@ -23,7 +24,10 @@ class MVVMApplication : Application(),KodeinAware {
         bind() from singleton { MyApi(instance()) }
         bind() from singleton { AppDatabase(instance()) }
         bind() from singleton { UserRepository(instance(),instance()) }
-        bind() from singleton { QuotesRepository(instance(),instance()) }
+//        in quote repository we need preferenceprovider, for this we will create it's instance and after this
+        //it will be available in instance()
+        bind() from singleton { PreferenceProvider(instance()) }
+        bind() from singleton { QuotesRepository(instance(),instance(),instance()) }
         bind() from singleton { AuthViewModelFactory(instance()) }
         bind() from singleton { ProfileViewModelFactory(instance()) }
         bind() from singleton { QuotesViewModelFactory(instance()) }
