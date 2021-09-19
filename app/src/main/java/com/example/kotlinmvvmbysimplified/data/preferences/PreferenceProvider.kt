@@ -2,7 +2,9 @@ package com.example.kotlinmvvmbysimplified.data.preferences
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.preference.PreferenceManager
+
+//update imported file to androidx
+import androidx.preference.PreferenceManager
 
 private const val KEY_SAVED_AT = "key_saved_at"
 class PreferenceProvider(

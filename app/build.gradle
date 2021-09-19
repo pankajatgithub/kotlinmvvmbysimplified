@@ -101,6 +101,8 @@ dependencies {
     implementation "org.kodein.di:kodein-di-generic-jvm:6.2.1"
     implementation "org.kodein.di:kodein-di-framework-android-x:6.2.1"
 
+    implementation("androidx.preference:preference-ktx:$preference_version")
+
 
     // Jetpack Compose Integration
 
