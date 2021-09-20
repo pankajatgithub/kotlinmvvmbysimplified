@@ -10,6 +10,8 @@ import com.example.kotlinmvvmbysimplified.ui.home.HomeActivity
 import com.example.kotlinmvvmbysimplified.util.ApiException
 import com.example.kotlinmvvmbysimplified.util.Coroutines
 import com.example.kotlinmvvmbysimplified.util.NoInternetException
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class AuthViewModel (
     private val repository: UserRepository
@@ -28,8 +30,18 @@ class AuthViewModel (
     suspend fun userLogin(
         email : String,
         password : String
-    ) = repository.userLogin(email, password)
+    ) = withContext(Dispatchers.IO){   //Network call will be always made on Dispatchers.IO ,i.e IO thread,not in main thread
+        repository.userLogin(email, password)
+    }
 
+    suspend fun userSignUp(
+        name:String,
+        email: String,
+        password: String,
+        password_confirmation:String
+    ) = withContext(Dispatchers.IO){
+        repository.userSignUp(name, email, password, password_confirmation)
+    }
 
     suspend fun saveLoggedInUser(user: User) = repository.saveUser(user)
 

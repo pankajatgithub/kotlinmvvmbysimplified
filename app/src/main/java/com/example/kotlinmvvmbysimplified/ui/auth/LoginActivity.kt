@@ -57,6 +57,9 @@ class LoginActivity : AppCompatActivity(),KodeinAware {
             binding.buttonSignIn.setOnClickListener {
                 logininUser()
             }
+        binding.textViewSignUp.setOnClickListener {
+            startActivity(Intent(this,SignupActivity::class.java))
+        }
     }
 
     private fun logininUser() {
